@@ -1,6 +1,7 @@
-@import url("https://fonts.googleapis.com/css2?family=PT+Serif:wght@400;
+@import url("https://fonts.googleapis.com/css2?family=PT+Serif&display=swap");
 
-700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=PT+Serif:wght@700&display=swap");
+
 @font-face {
   font-family: "Montserrat";
   font-display: swap;
@@ -89,6 +90,7 @@ input::-ms-clear {
 
 button {
   cursor: pointer;
+  background-color: transparent;
 }
 
 button::-moz-focus-inner {
@@ -189,6 +191,9 @@ h6 {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
   height: 2rem;
   padding: 0 6px;
   margin-left: 27px;
@@ -302,8 +307,8 @@ h6 {
 }
 
 .btn:hover::after {
-  -webkit-filter: brightness(70%);
-          filter: brightness(70%);
+  -webkit-filter: brightness(65%);
+          filter: brightness(65%);
   width: 100%;
   left: 0;
   -webkit-transition: width .8s, left .8s;
@@ -336,6 +341,10 @@ h6 {
   text-transform: uppercase;
   bottom: 86px;
   right: 0;
+}
+
+.first-block__title:hover {
+  text-decoration: underline;
 }
 
 .first-block__subtitle {
@@ -526,9 +535,9 @@ h6 {
 
 .bg-gradient__gradient {
   position: absolute;
-  top: -66px;
-  left: -53px;
-  height: 110%;
+  top: -167px;
+  left: -40px;
+  height: 140%;
   width: 100%;
   background-image: -webkit-gradient(linear, left top, left bottom, from(#007397), to(rgba(0, 115, 151, 0)));
   background-image: -o-linear-gradient(#007397 0%, rgba(0, 115, 151, 0) 100%);
@@ -551,6 +560,7 @@ h6 {
 }
 
 .bg-gradient__bottom-text {
+  display: block;
   position: relative;
   z-index: 1;
   color: #ffffff;
@@ -560,6 +570,10 @@ h6 {
   line-height: 32px;
   text-transform: uppercase;
   margin: 130px 30px 50px;
+}
+
+.bg-gradient__bottom-text:hover {
+  text-decoration: underline;
 }
 
 .learn__title {
@@ -714,20 +728,25 @@ h6 {
 
 @media only screen and (max-width: 792px) {
   .navbar__nav {
-    display: none;
-  }
-
-  .navbar__nav_active {
-    display: block;
+    margin-top: -400px;
+    right: 0;
     -ms-flex-preferred-size: 100%;
         flex-basis: 100%;
     padding-top: 1rem;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-transition: ease 1000ms;
+    -o-transition: ease 1000ms;
+    transition: ease 1000ms;
   }
 
-  .navbar__nav_active .nav__link {
-    -webkit-box-pack: end;
-        -ms-flex-pack: end;
-            justify-content: flex-end;
+  .navbar__nav_active {
+    margin-top: 0;
+    -webkit-transition: ease 800ms;
+    -o-transition: ease 800ms;
+    transition: ease 800ms;
   }
 
   .toggler {

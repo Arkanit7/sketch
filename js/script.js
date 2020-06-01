@@ -1,30 +1,45 @@
-$(document).ready(function () {
-	//Mobile menu
-	const nav = $(".navbar__nav");
-	const toggler = $(".toggler");
+function testWebP(callback) {
+	var webP = new Image();
+	webP.onload = webP.onerror = function () {
+		callback(webP.height == 2);
+	};
+	webP.src = "data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAACyAgCdASoCAAIALmk0mk0iIiIiIgBoSygABc6WWgAA/veff/0PP8bA//LwYAAA";
+}
 
-	toggler.click(function () {
-		toggler.toggleClass("toggler_active");
-		nav.toggleClass("navbar__nav_active");
-	})
+testWebP(function (support) {
+	if (support == true) {
+		document.querySelector('body').classList.add('webp');
+	} else {
+		document.querySelector('body').classList.add('no-webp');
+	}
+});
+window.onload = function () {
+	//Mobile menu
+	var nav = document.querySelector(".navbar__nav");
+	var toggler = document.querySelector(".toggler");
+
+	toggler.onclick = function () {
+		toggler.classList.toggle("toggler_active");
+		nav.classList.toggle("navbar__nav_active");
+	}
 
 	// Filter
-	const items = $(".news-item");
-	
+	var items = $(".news-item");
+
 	function filter(x) {
 		items.hide();
 
-		let key = x.data("filter");
+		var key = x.data("filter");
 		if (key == "all") {
 			items.show();
 		}
 		else {
-			$("."+key).show();
+			$("." + key).show();
 		}
-		
+
 	}
 
-	const switcher = $(".news__btn");
+	var switcher = $(".news__btn");
 
 	switcher.click(function () {
 		if ($(this).hasClass("news__btn_active")) {
@@ -37,38 +52,25 @@ $(document).ready(function () {
 		}
 	})
 
-	//Map
-	//// When the window has finished loading create our google map below
-google.maps.event.addDomListener(window, 'load', init);
-
-function init() {
-	// Basic options for a simple Google Map
-	// For more options see: https://developers.google.com/maps/documentation/javascript/reference#MapOptions
+};
+var map;
+function initMap() {
 	var locations = [
 		[new google.maps.LatLng(51.104947, 10.522583)],
-		[new google.maps.LatLng(43.091046, 12.707480)],
-		[new google.maps.LatLng(39.314040, -3.544999)],
+		[new google.maps.LatLng(43.091046, 12.70748)],
+		[new google.maps.LatLng(39.31404, -3.544999)],
 		[new google.maps.LatLng(61.974898, 9.638495)],
-		[new google.maps.LatLng(62.920534, 16.774980)],
+		[new google.maps.LatLng(62.920534, 16.77498)]
 	]
 
 	var mapOptions = {
-		// How zoomed in you want the map to start at (always required)
-		zoom: 4,
+		center: locations[0][0],
+		zoom: 3,
+		//scrollwheel: true,
+		styles: [{ "featureType": "landscape.natural", "elementType": "geometry.fill", "stylers": [{ "visibility": "on" }, { "color": "#e0efef" }] }, { "featureType": "poi", "elementType": "geometry.fill", "stylers": [{ "visibility": "on" }, { "hue": "#1900ff" }, { "color": "#c0e8e8" }] }, { "featureType": "road", "elementType": "geometry", "stylers": [{ "lightness": 100 }, { "visibility": "simplified" }] }, { "featureType": "road", "elementType": "labels", "stylers": [{ "visibility": "off" }] }, { "featureType": "transit.line", "elementType": "geometry", "stylers": [{ "visibility": "on" }, { "lightness": 700 }] }, { "featureType": "water", "elementType": "all", "stylers": [{ "color": "#7dcdcd" }] }],
+	}
 
-		// The latitude and longitude to center the map (always required)
-		center: new google.maps.LatLng(51.104947, 10.522583), // Germany
-		// How you would like to style the map. 
-		// This is where you would paste any style found on Snazzy Maps.
-		styles: [{ "featureType": "water", "elementType": "all", "stylers": [{ "hue": "#27b1e4" }, { "saturation": 60 }, { "lightness": -31 }, { "visibility": "on" }] }, { "featureType": "landscape", "elementType": "all", "stylers": [{ "hue": "#c0e6f4" }, { "saturation": 59 }, { "lightness": -4 }, { "visibility": "on" }] }, { "featureType": "road", "elementType": "all", "stylers": [{ "hue": "#7ed0ee" }, { "saturation": -23 }, { "lightness": 20 }, { "visibility": "on" }] }, { "featureType": "administrative", "elementType": "all", "stylers": [{ "hue": "#6fafc7" }, { "saturation": 44 }, { "lightness": 20 }, { "visibility": "on" }] }, { "featureType": "poi", "elementType": "all", "stylers": [{ "hue": "#aedbec" }, { "saturation": 33 }, { "lightness": 11 }, { "visibility": "on" }] }, { "featureType": "transit", "elementType": "all", "stylers": [{ "hue": "#aedbec" }, { "saturation": 62 }, { "lightness": 22 }, { "visibility": "off" }] }, { "featureType": "road.local", "elementType": "all", "stylers": [{ "hue": "#dceff6" }, { "saturation": -41 }, { "lightness": -9 }, { "visibility": "off" }] }, { "featureType": "landscape.man_made", "elementType": "all", "stylers": [{ "hue": "#dceff6" }, { "saturation": 44 }, { "lightness": 22 }, { "visibility": "on" }] }]
-	};
-
-	// Get the HTML DOM element that will contain your map 
-	// We are using a div with id="map" seen below in the <body>
-	var mapElement = document.getElementById('map');
-
-	// Create the Google Map using our element and options defined above
-	var map = new google.maps.Map(mapElement, mapOptions);
+	map = new google.maps.Map(document.getElementById('map'), mapOptions);
 
 	var icon = {
 		url: '../img/map.svg',
@@ -76,14 +78,11 @@ function init() {
 		anchor: new google.maps.Point(9, 10)
 	}
 
-	// Let's also add a marker while we're at it
 	for (var i = 0; i < locations.length; i++) {
 		var marker = new google.maps.Marker({
-			icon: icon,
+			icon:icon,
 			position: locations[i][0],
-			map: map,
+			map: map
 		});
 	}
-};
-});	
-
+}
