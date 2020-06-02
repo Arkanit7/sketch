@@ -51,7 +51,6 @@ window.onload = function () {
 			filter($(this));
 		}
 	})
-
 };
 var map;
 function initMap() {

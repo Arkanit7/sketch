@@ -26,6 +26,8 @@
   font-style: normal;
 }
 
+/* ---------Reset Styles--------- */
+
 * {
   padding: 0;
   margin: 0;
@@ -131,7 +133,7 @@ h6 {
   font-weight: 400;
 }
 
-/*----------*/
+/*----------------End of reset styles--------------------*/
 
 :root {
   font-family: 'Montserrat', sans-serif, serif;
